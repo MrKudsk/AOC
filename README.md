@@ -8,4 +8,13 @@ My solution is made in c.
 
 ## Day 2
 
+My solution is made in c.
+
+## Day 3
+
+My solution is made in c. Nice Binary assignment :-)
+
+## Day 4
+
+
 
