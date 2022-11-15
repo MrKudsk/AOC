@@ -16,5 +16,13 @@ My solution is made in c. Nice Binary assignment :-)
 
 ## Day 4
 
+My Rust solution, with help.
 
+```bach
+    cargo run
+```
+
+## Day 5
+
+My Rust solution.
 
