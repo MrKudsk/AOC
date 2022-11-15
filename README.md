@@ -2,6 +2,8 @@
 
 This my try to complied this year of Avent of Code.
 
+Link http://adventofcode.com/2021
+
 ## Day 1 
 
 My solution is made in c.
@@ -14,7 +16,7 @@ My solution is made in c.
 
 My solution is made in c. Nice Binary assignment :-)
 
-## Day 4
+## Day 4 - Bingo
 
 My Rust solution, with help.
 
@@ -22,7 +24,9 @@ My Rust solution, with help.
     cargo run
 ```
 
-## Day 5
+## Day 5 - Lines
 
 My Rust solution.
+
+## Day 6
 
