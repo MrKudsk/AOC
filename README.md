@@ -28,5 +28,10 @@ My Rust solution, with help.
 
 My Rust solution.
 
-## Day 6
+## --- Day 6: Lanternfish ---
 
+Simulation of Lanternfish, 80 and 256 days.
+
+## --- Day 7: The Treachery of Whales ---
+
+Crab fuel calculation. 
