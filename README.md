@@ -35,3 +35,9 @@ Simulation of Lanternfish, 80 and 256 days.
 ## --- Day 7: The Treachery of Whales ---
 
 Crab fuel calculation. 
+
+## --- Day 8: Seven Seqment Search ---
+
+How many times do digits 1, 4, 7, or 8 appear?
+
+
