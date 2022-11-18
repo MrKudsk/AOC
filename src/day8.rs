@@ -1,4 +1,5 @@
 use itertools::Itertools;
+use std::collections::HashSet;
 
 const INPUT: &'static str = include_str!("../input/8.txt");
 
@@ -31,49 +32,97 @@ pub fn parser1(s: &str) -> usize {
         .len()
 }
 
-fn convert_number(s: &str) -> i32 {
-    let mut first = match s.len() {
-        2 => 1,
-        3 => 7,
-        4 => 4,
-        8 => 7,
-        _ => 0,
-    };
-    /*if s.len() == 6 {
-        first = match s.con
-    }
-    if first == 0 {
-        first = match s {
-            "fdgacbe"   => 8,
-            "cefdb"     => 3,
-            "cefbgd"    => 9,
-            "fcgedb"    => 9,
-            _ => {
-                let ch = s.clone().chars().sorted();    
-                dbg!(ch.);
-                0},
-        
-        };
-    }*/
-    first
-}
-pub fn parser2(s: &str) -> i32 {
+
+
+pub fn parser2(s: &str) -> usize {
     let puzzle = get_segment(s);
 
     let num = puzzle.iter()
         .fold(0, |acc, line| {
             let (input, seg) = line.split_once(" | ").unwrap();
-            let mut output: i32 = 0;
+            let head: Vec<HashSet<_>> = input
+                .split_whitespace()
+                .map(|s| HashSet::from_iter(s.chars()))
+                .collect();
+
+            let mut map: Vec<Option<HashSet<char>>> = vec![None; 10];
+
+            let mut remain = vec![];
+            for set in head.into_iter() {
+                match set.len() {
+                    2 => map[1] = Some(set),
+                    4 => map[4] = Some(set),
+                    3 => map[7] = Some(set),
+                    7 => map[8] = Some(set),
+                    _ => remain.push(set),
+                }
+            }
+            
+            let head = remain;
+            let mut remain = vec![];
+
+            for set in head.into_iter() {
+                if set.len() == 6 && set.is_superset(map[4].as_ref().unwrap()) {
+                    map[9] = Some(set);
+                } else if set.len() == 5 && set.is_superset(map[1].as_ref().unwrap()) {
+                    map[3] = Some(set);
+                } else {
+                    remain.push(set);
+                }
+            }
+
+            let head = remain;
+            let mut remain = vec![];
+
+            for set in head.into_iter() {
+                if set.len() == 6 && set.is_superset(map[1].as_ref().unwrap()) {
+                    map[0] = Some(set);
+                } else {
+                    remain.push(set);
+                }
+            }
+
+            let head = remain;
+            let mut remain = vec![];
+
+            for set in head.into_iter() {
+                if set.len() == 6 {
+                    map[6] = Some(set);
+                } else {
+                    remain.push(set);
+                }
+            }
+
+            let head = remain;
+
+            for set in head.into_iter() {
+                if set.is_subset(map[6].as_ref().unwrap()) {
+                    map[5] = Some(set);
+                } else {
+                    map[2] = Some(set);
+                }
+            }
+
+            let map: Vec<_> = map.into_iter().map(|item| item.unwrap()).collect();
+            /*let mut output: i32 = 0;
             let mut numbers = seg.split_whitespace().collect_vec().into_iter();
             output += convert_number(&numbers.next().unwrap()) * 1000; 
             output += convert_number(&numbers.next().unwrap()) * 100; 
             output += convert_number(&numbers.next().unwrap()) * 10; 
-            output += convert_number(&numbers.next().unwrap()); 
-            dbg!(input, output);
-            acc + output
+            output += convert_number(&numbers.next().unwrap());
+            */
+            //dbg!(&map);
+            let mut count = 0;
+            for i in seg.split_whitespace() {
+                let set: HashSet<char> = HashSet::from_iter(i.chars());
+                let n = map.iter().position(|cmp| cmp == &set).unwrap();
+                count *= 10;
+                count += n;
+            }
+            //dbg!(input, count);
+            acc + count
         });
-    dbg!(num);
-    todo!();
+    num
 }
 
 #[cfg(test)]
