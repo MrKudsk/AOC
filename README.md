@@ -38,6 +38,10 @@ Crab fuel calculation.
 
 ## --- Day 8: Seven Seqment Search ---
 
-How many times do digits 1, 4, 7, or 8 appear?
+- How many times do digits 1, 4, 7, or 8 appear?
+- Decrypte the digitals number 0-9 and then read the no.
 
+## --- Day 9: Smoke Basin ---
 
+- Find the lowest locations from the adjacent (up, down, left, and right)
+- Find the largest basin from the above locations.
