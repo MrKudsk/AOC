@@ -1,3 +1,5 @@
+use std::collections::HashSet;
+
 #[warn(unused_must_use)]
 
 use itertools::Itertools;
@@ -75,7 +77,7 @@ pub fn parser1(s: &str) -> usize {
         .fold(0, |acc, (x,y)| acc + puzzle[*x][*y] as usize + 1)
 }
 
-pub fn parser2(s: &str) -> i32 {
+pub fn parser2(s: &str) -> usize {
     let puzzle = s.lines()
                     .map(|line| 
                         line.chars().into_iter()
@@ -98,9 +100,35 @@ pub fn parser2(s: &str) -> i32 {
         })
     }
 
-    lowest.iter()
-        .fold(0, |acc, (x,y)| acc + puzzle[*x][*y] as usize + 1);
-    todo!();
+    // The founded basin count
+    let mut basins: Vec<usize> = Vec::new();
+    // Checked that I am not counting locations twees
+    let mut checked: HashSet<(usize, usize)> = HashSet::new();
+
+    for (low_x, low_y) in lowest.into_iter() {
+        // count the first locations as our lowest 
+        checked.insert((low_x, low_y));
+        let mut current_basin_count = 1;
+        
+        let mut to_visit = adjacent_locations(low_x, low_y, rows, cols);
+        while !to_visit.is_empty() {
+            let (x,y) = to_visit.pop().unwrap();
+
+            if checked.contains(&(x,y)) { continue; }
+
+            if puzzle[x][y] !=9 {
+                current_basin_count += 1;
+
+                to_visit.extend(
+                    adjacent_locations(x, y, rows, cols)
+                );
+            }
+            checked.insert((x,y));
+        }
+        basins.push(current_basin_count);
+    }
+
+    basins.iter().sorted().rev().take(3).product::<usize>()
 }
 
 #[cfg(test)]
