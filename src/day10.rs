@@ -1,10 +1,10 @@
 
-const INPUT: &'static str = include_str!("../input/5.txt");
+const INPUT: &'static str = include_str!("../input/10.txt");
 
 pub fn run() {
     println!("-----------------------------------");
-    println!("day 4, output 1: {}", parser1(INPUT));
-    println!("day 4, output 2: {}", parser2(INPUT));
+    println!("day 10, output 1: {}", parser1(INPUT));
+    println!("day 10, output 2: {}", parser2(INPUT));
 }
 
 pub fn parser1(s: &str) -> i32 {
@@ -19,11 +19,20 @@ pub fn parser2(s: &str) -> i32 {
 mod test {
     use super::*;
 
-    const INPUT: &str = "";
+    const INPUT: &str = "[({(<(())[]>[[{[]{<()<>>
+[(()[<>])]({[<{<<[]>>(
+{([(<{}[<>[]}>{[]{[(<()>
+(((({<>}<{<{<>}{[]{[]{}
+[[<[([]))<([[{}[[()]]]
+[{[{({}]{}}([{[{{{}}([]
+{<[[]]>}<{[{[{[]{()[[[]
+[<(<(<(<{}))><([]([]()
+<{([([[(<>()){}]>(<<{{
+<{([{{}}[<[[[<>{}]]]>[]]";
 
     #[test]
     fn first() {
-        assert_eq!(parser1(INPUT), 4512)
+        assert_eq!(parser1(INPUT), 26397)
     }
 
     #[test]
