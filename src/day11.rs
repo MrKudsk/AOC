@@ -19,11 +19,20 @@ pub fn parser2(s: &str) -> i32 {
 mod test {
     use super::*;
 
-    const INPUT: &str = "";
+    const INPUT: &str = "5483143223
+2745854711
+5264556173
+6141336146
+6357385478
+4167524645
+2176841721
+6882881134
+4846848554
+5283751526";
 
     #[test]
     fn first() {
-        assert_eq!(parser1(INPUT), 4512)
+        assert_eq!(parser1(INPUT), 1656)
     }
 
     #[test]

@@ -50,3 +50,8 @@ Crab fuel calculation.
 
 - What is the total syntax error score for those errors?
 - What is the middle score?
+
+## --- Day 11: Dumbo Octopus ---
+
+- How many total flashes there after 100 steps?
+- 
