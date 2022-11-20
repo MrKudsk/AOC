@@ -1,5 +1,5 @@
 use std::collections::HashMap;
-
+use itertools::Itertools;
 
 const INPUT: &'static str = include_str!("../input/10.txt");
 
@@ -51,7 +51,7 @@ pub fn parser2(s: &str) -> usize {
     closes.insert('>', '<');
 
     let puzzle = s.lines()
-        .fold(0, |acc, line| {
+        .filter_map(|line| {
             let mut stack = Vec::new();
 
             for c in line.chars() {
@@ -61,18 +61,26 @@ pub fn parser2(s: &str) -> usize {
                     if stack.last().unwrap() == closes.get(&c).unwrap() {
                         stack.pop();
                     } else {
-                        if c == ')' { return acc + 3; }
-                        else if c == ']' { return acc + 57; }
-                        else if c == '}' { return acc + 1197; }
-                        else if c == '>' { return acc + 25137; }
-                        else { panic!("Aaaaahhhh!");}
+                        return None;
                     }
                 }
             }
-            acc
-        });
+            let points = Some(stack.iter()
+                .rev()
+                .fold(0, |pt, &c| {
+                    if c == '(' { return (pt * 5) + 1}
+                    else if c == '[' { return (pt * 5) + 2; }
+                    else if c == '{' { return (pt * 5) + 3; }
+                    else if c == '<' { return (pt * 5) + 4; }
+                    else { panic!("Aaaaahhhh!");}
+                }));
+            //dbg!(line, points);
+            points
+        })
+        .sorted()
+        .collect_vec();
 
-    puzzle
+    puzzle[puzzle.len() / 2]
 }
 
 #[cfg(test)]

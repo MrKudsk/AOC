@@ -63,6 +63,7 @@ impl Board {
 }
 
 pub fn run() {
+    println!("-----------------------------------");
     println!("day 4, output 1: {}", parser1(INPUT));
     println!("day 4, output 2: {}", parser2(INPUT));
 }

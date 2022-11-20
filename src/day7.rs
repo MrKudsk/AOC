@@ -2,6 +2,7 @@
 const INPUT: &'static str = include_str!("../input/7.txt");
 
 pub fn run() {
+    println!("-----------------------------------");
     println!("day 7, output 1: {}", parser1(INPUT));
     println!("day 7, output 2: {}", parser2(INPUT));
 }

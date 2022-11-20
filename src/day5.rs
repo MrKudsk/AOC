@@ -5,6 +5,7 @@ use std::{str::FromStr, collections::HashMap, ops::RangeInclusive};
 const INPUT: &'static str = include_str!("../input/5.txt");
 
 pub fn run() {
+    println!("-----------------------------------");
     println!("day 5, output 1: {}", parser1(INPUT));
     println!("day 5, output 2: {}", parser2(INPUT));
 }

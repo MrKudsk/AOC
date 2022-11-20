@@ -3,6 +3,7 @@ use std::collections::VecDeque;
 const INPUT: &'static str = include_str!("../input/6.txt");
 
 pub fn run() {
+    println!("-----------------------------------");
     println!("There total of fish after 80 days");
     println!("day 6, output 1: {}", parser1(INPUT));
     println!("day 6, output 2: {}", parser2(INPUT));
