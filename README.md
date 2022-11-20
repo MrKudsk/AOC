@@ -45,3 +45,8 @@ Crab fuel calculation.
 
 - Find the lowest locations from the adjacent (up, down, left, and right)
 - Find the largest basin from the above locations.
+
+## --- Day 10: Syntax Scoring ---
+
+- What is the total syntax error score for those errors?
+- What is the middle score?

@@ -1,3 +1,5 @@
+use std::collections::HashMap;
+
 
 const INPUT: &'static str = include_str!("../input/10.txt");
 
@@ -7,12 +9,70 @@ pub fn run() {
     println!("day 10, output 2: {}", parser2(INPUT));
 }
 
-pub fn parser1(s: &str) -> i32 {
-    todo!();
+pub fn parser1(s: &str) -> usize{
+    let opens = vec!['(', '[', '{', '<'];
+    let mut closes = HashMap::new();
+    closes.insert(')', '(');
+    closes.insert(']', '[');
+    closes.insert('}', '{');
+    closes.insert('>', '<');
+
+    let puzzle = s.lines()
+        .fold(0, |acc, line| {
+            let mut stack = Vec::new();
+
+            for c in line.chars() {
+                if opens.contains(&c) {
+                    stack.push(c);
+                } else {
+                    if stack.last().unwrap() == closes.get(&c).unwrap() {
+                        stack.pop();
+                    } else {
+                        if c == ')' { return acc + 3; }
+                        else if c == ']' { return acc + 57; }
+                        else if c == '}' { return acc + 1197; }
+                        else if c == '>' { return acc + 25137; }
+                        else { panic!("Aaaaahhhh!");}
+                    }
+                }
+            }
+            acc
+        });
+
+    puzzle
 }
 
-pub fn parser2(s: &str) -> i32 {
-    todo!();
+pub fn parser2(s: &str) -> usize {
+    let opens = vec!['(', '[', '{', '<'];
+    let mut closes = HashMap::new();
+    closes.insert(')', '(');
+    closes.insert(']', '[');
+    closes.insert('}', '{');
+    closes.insert('>', '<');
+
+    let puzzle = s.lines()
+        .fold(0, |acc, line| {
+            let mut stack = Vec::new();
+
+            for c in line.chars() {
+                if opens.contains(&c) {
+                    stack.push(c);
+                } else {
+                    if stack.last().unwrap() == closes.get(&c).unwrap() {
+                        stack.pop();
+                    } else {
+                        if c == ')' { return acc + 3; }
+                        else if c == ']' { return acc + 57; }
+                        else if c == '}' { return acc + 1197; }
+                        else if c == '>' { return acc + 25137; }
+                        else { panic!("Aaaaahhhh!");}
+                    }
+                }
+            }
+            acc
+        });
+
+    puzzle
 }
 
 #[cfg(test)]
@@ -37,7 +97,7 @@ mod test {
 
     #[test]
     fn second() {
-        assert_eq!(parser2(INPUT), 1924)
+        assert_eq!(parser2(INPUT), 288957)
     }
 }
 
