@@ -54,4 +54,7 @@ Crab fuel calculation.
 ## --- Day 11: Dumbo Octopus ---
 
 - How many total flashes there after 100 steps?
-- 
+- What is the first step during which all octopuses flash?
+
+## --- Day 12: ---
+
