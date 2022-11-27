@@ -3,8 +3,8 @@
 const INPUT: &'static str = include_str!("../../input/01.txt");
 
 fn main() {
-    println!("day 00, output 1: {}", parse1(INPUT));
-    println!("day 00, output 2: {}", parse2(INPUT));
+    println!("day 01, output 1: {}", parse1(INPUT));
+    println!("day 01, output 2: {}", parse2(INPUT));
 }
 
 fn parse1(s: &str) -> usize {
