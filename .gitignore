@@ -5,4 +5,4 @@ day
 
 # Added by cargo
 
-/target
+/aoc20*/target
