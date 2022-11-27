@@ -1,5 +1,15 @@
 # Advent of code 2022
 
+## Run the code
+```bach
+    cargo run --bin dayXX
+```
+
+## Run the test
+```bach
+    cargo watch -q -c -w src/ -x 'test --bin dayXX'
+```
+
 ### --- Day 01 ---
 
 ### --- Day 02 ---
