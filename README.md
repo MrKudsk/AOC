@@ -12,5 +12,5 @@ I have stated in 2021 first in C and then in Rust.
 
 ## Advent of code 2022
 * [AOC 2022](http://adventofcode.com/2022)
-* [README](tree/master/aoc2022)
+* [README](aoc2022)
 
