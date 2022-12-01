@@ -4,7 +4,9 @@ day
 
 # Added by cargo
 
+aoc2021/target/
 /aoc20*/target/
-/aoc20*/Cargo.lock
+*/aoc20*/target/
+*.lock
 
 **/*.rs.bk
