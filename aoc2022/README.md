@@ -63,4 +63,6 @@
 
 ### --- Day 25 ---
 
+## Vim tip
 
+When coping the day00.rs to the next day use ```bash :%a/00/XX/g```
