@@ -11,11 +11,12 @@
 ```
 
 ### --- Day 01: Calorie Counting ---
-* Find the Elf carrying the most Calories. How many total Calories is that Elf carrying?
-* Find the top three Elves carrying, the most Calories. How many Calories are those 
-  Elves carrying in total?
+1. Find the Elf carrying the most Calories. How many total Calories is that Elf carrying?
+2. Find the top three Elves carrying, the most Calories. How many Calories are those Elves carrying in total?
 
-### --- Day 02 ---
+### --- Day 02: Rock, Paper Scissors ---
+1. What would your total score be if everything goes exactly according to your strategy guide?
+2. If I following the Elf's instructions
 
 ### --- Day 03 ---
 
