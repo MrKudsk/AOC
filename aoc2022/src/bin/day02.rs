@@ -36,6 +36,36 @@ fn find_winner(a: &str, b: &str) -> u32 {
     }
 }
 
+fn cal_point(point: &HashMap<&str, u32>, a: &str, b: &str) -> u32 {
+    if b == "Y" {               // draw
+        let my_hand = match a {
+            "A" => "X",       // Rock   
+            "B" => "Y",       // Paper    
+            "C" => "Z",       // Scissors
+            _   => panic!("Error"),
+        };
+        return 3 + point.get(my_hand).unwrap();
+    } else if b == "X" {      // lose
+        let my_hand = match a {
+            "A" => "Z",       // Rock   
+            "B" => "X",       // Paper    
+            "C" => "Y",       // Scissors
+            _   => panic!("Error"),
+        };
+        return 0 + point.get(my_hand).unwrap();
+    } else if b == "Z" {               // Win
+        let my_hand = match a {
+            "A" => "Y",       // Rock   
+            "B" => "Z",       // Paper    
+            "C" => "X",       // Scissors
+            _   => panic!("Error"),
+        };
+        return 6 + point.get(my_hand).unwrap();
+    } else {
+        return 0;
+    }
+}
+
 fn parse1(s: &str) -> i32 {
     let mut shape_point = HashMap::new();
     shape_point.insert("X", 1);     // Rock
@@ -54,7 +84,7 @@ fn parse1(s: &str) -> i32 {
     points
 }
 
-fn parse2(s: &str) -> usize {
+fn parse2(s: &str) -> u32 {
     let mut shape_point = HashMap::new();
     shape_point.insert("X", 1);     // Rock
     shape_point.insert("Y", 2);     // Paper
@@ -63,13 +93,13 @@ fn parse2(s: &str) -> usize {
     let points = s.lines()
         .map(|l| { 
             let (a,b) = l.split_once(" ").unwrap();
-            return find_winner(a, b) as i32;
+            return cal_point(&shape_point, a, b);
         })
         .collect_vec()
-        //.into_iter()
-        //.sum();
-    dbg!(&points);
-    //points
+        .into_iter()
+        .sum();
+    //dbg!(&points);
+    points
 }
     
 #[cfg(test)]
