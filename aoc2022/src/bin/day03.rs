@@ -1,4 +1,4 @@
-#[allow(unused_variables)]
+#![feature(iter_array_chunks)]
 //use std::collections::HashMap;
 use itertools::Itertools;
 
@@ -40,12 +40,25 @@ fn parse1(s: &str) -> usize {
     })
     //.collect_vec()
     .sum();
-    dbg!(&point);
+    //dbg!(&point);
     point as usize
 }
 
-fn parse2(_s: &str) -> usize {
-    todo!()
+fn parse2(s: &str) -> usize {
+    let point = s.lines()
+        .array_chunks::<3>()
+        .map(|[a,b,c]| {
+            let common_char = a
+                .chars()
+                .find(|a_char| {
+                    b.contains(*a_char) && c.contains(*a_char)
+                });
+            find_point(common_char.unwrap())
+        })
+        .sum::<u32>();
+    //dbg!(&point);
+    
+    point as usize
 }
 
 #[cfg(test)]
@@ -72,6 +85,6 @@ CrZsJsPPZsGzwwsLwLmpwMDw";
 
     #[test]
     fn second() {
-        assert_eq!(parse2(INPUT), 1);
+        assert_eq!(parse2(INPUT), 70);
     }
 }
