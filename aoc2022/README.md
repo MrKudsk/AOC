@@ -26,7 +26,8 @@
 1. In how many assignment pairs does one range fully contain the other?
 2. In how many assignment pairs do the ranges overlap?
 
-### --- Day 05 ---
+### --- Day 05: Supply Stacks ---
+1. After the rearrangement procedure completes, what crate ends up on top of each stack?
 
 ### --- Day 06 ---
 
