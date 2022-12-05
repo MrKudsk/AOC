@@ -24,6 +24,7 @@
 
 ### --- Day 04: Camp Cleanup ---
 1. In how many assignment pairs does one range fully contain the other?
+2. In how many assignment pairs do the ranges overlap?
 
 ### --- Day 05 ---
 

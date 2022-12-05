@@ -23,7 +23,7 @@ fn make_vec(con: &str) -> Vec<u32> {
         })
         .collect::<Vec<u32>>()
 }
-
+/*
 fn make_string(con: &str) -> String {
     let (con_x, con_y) = con.split_once("-")
         .unwrap();
@@ -39,7 +39,7 @@ fn make_string(con: &str) -> String {
         })
         .collect::<String>()
 }
-
+*/
 fn parse1(s: &str) -> usize {
     let res = s.lines()
         .map(|l| {
@@ -65,8 +65,25 @@ fn parse1(s: &str) -> usize {
     res as usize
 }
 
-fn parse2(_s: &str) -> usize {
-    todo!()
+fn parse2(s: &str) -> usize {
+    let res = s.lines()
+        .map(|l| {
+            let (con_a, con_b) = l.split_once(",").unwrap();
+            let a: Vec<u32> = make_vec(con_a);
+            let b: Vec<u32> = make_vec(con_b);
+            let num = a.into_iter()
+                .filter(|no| b.contains(no))
+                .collect::<Vec<u32>>();
+            //dbg!(&num);
+            if num.len() > 0 {
+                1
+            } else {
+                0
+            }
+        })
+        .sum::<u32>();
+    //dbg!(res);
+    res as usize
 }
 
 #[cfg(test)]
@@ -78,7 +95,7 @@ mod test {
 5-7,7-9
 2-8,3-7
 6-6,4-6
-20-26,4-8";
+2-6,4-8";
 
     #[test]
     fn first() {
@@ -87,6 +104,6 @@ mod test {
 
     #[test]
     fn second() {
-        assert_eq!(parse2(INPUT), 1);
+        assert_eq!(parse2(INPUT), 4);
     }
 }
