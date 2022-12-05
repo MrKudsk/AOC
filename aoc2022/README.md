@@ -18,9 +18,12 @@
 1. What would your total score be if everything goes exactly according to your strategy guide?
 2. If I following the Elf's instructions
 
-### --- Day 03 ---
+### --- Day 03: Rucksack Reorganization ---
+1. Find the item type that appears in both compartments of each rucksack. What is the sum of the priorities of those item types?
+2. Find the item type that corresponds to the badges of each three-Elf group. What is the sum of the priorities of those item types?
 
-### --- Day 04 ---
+### --- Day 04: Camp Cleanup ---
+1. In how many assignment pairs does one range fully contain the other?
 
 ### --- Day 05 ---
 
