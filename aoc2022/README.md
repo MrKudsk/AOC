@@ -28,8 +28,10 @@
 
 ### --- Day 05: Supply Stacks ---
 1. After the rearrangement procedure completes, what crate ends up on top of each stack?
+2. After the rearrangement procedure completes, what crate ends up on top of each stack?
 
-### --- Day 06 ---
+### --- Day 06: Tuning Trouble ---
+1. How many characters need to be processed before the first start-of-packet marker is detected?
 
 ### --- Day 07 ---
 
