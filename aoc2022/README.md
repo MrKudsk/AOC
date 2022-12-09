@@ -38,7 +38,9 @@
 1. Find all of the directories with a total size of at most 100.000. What is the sum of the sizes of those directories?
 2. Find the samllest directory that, if deleted, would free up enough space on the filesystem to run the update. What is the total size of that directory?
 
-### --- Day 08 ---
+### --- Day 08: Treetop Tree House ---
+1. Consider your map; how many trees are visible from outside the grid?
+2. Consider each tree on your map. What is the highest scenic score possible for any tree? 
 
 ### --- Day 09 ---
 
