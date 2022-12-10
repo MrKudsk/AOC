@@ -47,7 +47,10 @@
 2. Simulate your complete series of motions on a larger rope with ten knots.
 How many positions does the tail of the rope visit at least once?
 
-### --- Day 10 ---
+### --- Day 10: Cathode-Ray Tube ---
+1. Find the signal strength during the 20th, 60th, 100th, 140th, 180th and 220th cycles. 
+   What is the sum of these six signal strengths?
+2. Render the image given by your program. What eight capital letters appear on your CRT?
 
 ### --- Day 11 ---
 
