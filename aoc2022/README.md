@@ -58,8 +58,11 @@ How many positions does the tail of the rope visit at least once?
 
 ### --- Day 12: Hill Climbing Algorithm ---
 1. What is the fewest steps required to move from your current position to the location that should get the best signal?
+2. What is the fewest steps required to move starting from any square with elevation a to the location that should get the best signal?
+
+### --- Day 13: Distress Signal ---
+1. Determine which pairs of packets are already in the right order. What is the sum of the indices of those pairs?
 2. 
-### --- Day 13 ---
 
 ### --- Day 14 ---
 
