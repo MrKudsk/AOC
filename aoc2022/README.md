@@ -16,7 +16,7 @@
 
 ### --- Day 02: Rock, Paper Scissors ---
 1. What would your total score be if everything goes exactly according to your strategy guide?
-2. If I following the Elf's instructions
+2. If I'm following the Elf's instructions
 
 ### --- Day 03: Rucksack Reorganization ---
 1. Find the item type that appears in both compartments of each rucksack. What is the sum of the priorities of those item types?
@@ -62,11 +62,13 @@ How many positions does the tail of the rope visit at least once?
 
 ### --- Day 13: Distress Signal ---
 1. Determine which pairs of packets are already in the right order. What is the sum of the indices of those pairs?
-2. 
+2. Organize all of the packets into the correct order. What is the decoder key for the distress signal?
 
-### --- Day 14 ---
+### --- Day 14: Regolith Reservoir ---
+1. Using your scan, simulate the falling sand. How many units of sand come to rest before sand starts flowing into the abyss below?
+2. Using your scan, simulate the falling sand until the source of the sand becomes blocked. How many units of sand come to rest?
 
-### --- Day 15 ---
+### --- Day 15: ---
 
 ### --- Day 16 ---
 
