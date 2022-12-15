@@ -2,7 +2,11 @@ aocdl
 day
 *.o
 
-
 # Added by cargo
 
-/target
+aoc2021/target/
+/aoc20*/target/
+*/aoc20*/target/
+*.lock
+
+**/*.rs.bk
