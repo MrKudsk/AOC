@@ -68,7 +68,9 @@ How many positions does the tail of the rope visit at least once?
 1. Using your scan, simulate the falling sand. How many units of sand come to rest before sand starts flowing into the abyss below?
 2. Using your scan, simulate the falling sand until the source of the sand becomes blocked. How many units of sand come to rest?
 
-### --- Day 15: ---
+### --- Day 15: Beacon Exclusion Zone ---
+1. Consult the report from the sensors you just deployed. In the row where y=2000000, how many positions cannot contain a beacon?
+2. Find the only possible position for the distress beacon. What is its tuning frequency?
 
 ### --- Day 16 ---
 

@@ -90,7 +90,7 @@ fn simulate_sand(draw: &mut Vec<Vec<char>>, start: (usize,usize)) -> usize {
             break;
         }
         sand = start;
-        //i += 1;
+       //i += 1;
     }
     print_map(&draw);
     i
