@@ -123,10 +123,11 @@ fn parse2(s: &str, limit: i32) -> i32 {
     println!("Calulated Sensor {}", distance.len());
     //let mut map: BTreeMap<i32, Vec<i32>> = BTreeMap::new();
     
+    // This is to slow need a new and faste selustion
     let mut result = (0,0);
     for y in min_limt..=limit {
         let vec = get_x_range(&distance, y, limit);
-        if y % 100_000 == 0 {
+        if y % 10 == 0 {
             println!("-> {y}");
         }
         if (max(&vec).unwrap() - min(&vec).unwrap()) != (vec.len() as i32 - 1) {
