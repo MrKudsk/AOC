@@ -212,8 +212,9 @@ fn parse1(s: &str) -> usize {
                 .collect::<Vec<_>>()
         })
         .collect::<Vec<((i32,i32, char),(i32,i32, char))>>();
-    //dbg!(&edges);
+    dbg!(&edges);
 
+    todo!();
     let graph = DiGraphMap::<(i32, i32, char),()>::from_edges(&edges,);
     let res = dijkstra(
         &graph,

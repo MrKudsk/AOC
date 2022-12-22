@@ -72,7 +72,9 @@ How many positions does the tail of the rope visit at least once?
 1. Consult the report from the sensors you just deployed. In the row where y=2000000, how many positions cannot contain a beacon?
 2. Find the only possible position for the distress beacon. What is its tuning frequency?
 
-### --- Day 16 ---
+### --- Day 16: Proboscidea Volcanium ---
+1. Work out the steps to release the most pressure in 30 minutes. What is the most pressure you can release?
+2. 
 
 ### --- Day 17 ---
 
