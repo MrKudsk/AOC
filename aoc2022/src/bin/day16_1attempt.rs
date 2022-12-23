@@ -55,76 +55,32 @@ fn get_map(input: &str) -> IResult<&str, BTreeMap<&str, Valve>> {
         })
         .collect::<BTreeMap<&str, Valve>>()))
 }
-/*
-fn get_neighbors(key: &str, valves: &BTreeMap<&str, Valve>) -> Vec<(&str, u8)> {
-    valves.get(&*key).unwrap().leads
-    .iter()
-    .map(|v| (v, 1))
-    .collect::<Vec<(&str, u8)>>()
-}
-        if casched.contains_key(&(pos,timer - 1)) {
-           score = *casched.get(&(pos,timer-1 )).unwrap();
-           println!("casched {}", score);
-        } else {
-            score = valve.leads.iter()
-                .map(|p| {
-                    solve(p, timer -1  , opened, &valves, casched)
-                })
-                .max().unwrap();
-            casched.insert((pos, timer - 1), score);
-        }*/
 
-fn solve<'a>(
-        pos: &'a str, 
-        timer: i32, 
-        mut opened: &mut Vec<&'a str>, 
-        valves: &BTreeMap<&str, Valve<'a>>,
-        casched: &mut BTreeMap<(i32, &'a str), i32>
-    ) -> i32 {
-    println!("time is {} {}", timer, &pos);
-    let mut score = 0;
-    if casched.contains_key(&(timer, &pos)) {
-        score = *casched.get(&(timer, &pos)).unwrap();
-    } else {
-        if timer > 1 {
-            let valve = valves.get(pos).unwrap();
-            //dbg!(&valve);
-                score = valve.leads.iter()
-                    .map(|p| {
-                        println!(" solve {} {:?}", p, opened);
-                        //opened.push(pos);
-                        solve(p, timer -1  , &mut opened, &valves, casched)
-                    })
-                    .max().unwrap();
 
-            println!("rate {} is opened {:?}", valve.rate, opened);
-            if valve.rate > 0 && !opened.contains(&pos) {
-                opened.push(pos);
-                let mut new_opened = opened.clone();
-                println!("new {:?}", new_opened);
-                let flow = ((timer - 1) * valve.rate as i32) + solve(pos, timer -1, &mut new_opened, &valves, casched);
-                println!("{} * {} = {}", (timer - 1), valve.rate, flow);
-                if flow > score {
-                    score = flow;
-                } 
-            }
-            casched.insert((timer, &pos), score);
-        }
-    }
-    score
+fn get_dist(from: &str, to: &str, graph: &DiGraphMap<&str, &str>) -> usize {
+    let res = dijkstra(
+        graph,
+        from,
+        Some(to),
+        |_| 1,
+    );
+    res[to]
 }
 
-fn dist<'a>(pos: &'a str, time: u32, valves: &BTreeMap<&str, Valve<'a>>) {
-    let valve = valves.get(pos).unwrap();
-    let t = valve.leads.iter()
-        .map(|p| {
-            let t = dist(p, time + 1, &valves);
-            println!("{:?}", t);
-            (*p, time + 1)
+fn solve(pos: &str, time: usize, 
+    target_nodes: &Vec<&str>, 
+    valves: &BTreeMap<&str, Valve>, 
+    graph: &DiGraphMap<&str, &str>
+) -> usize {
+    let score = target_nodes.iter()
+        .map(|target| {
+            let dist = get_dist(pos, target, gr;
+            let flow = valves.get(target).unwrap().rate as usize;
+            (target, (time - dist - 1) * flow, dist)
         })
-        .filter(|(p, _)| valves.get(p).unwrap().rate > 0)
-        .collect::<Vec<(&str, u32)>>();
-    dbg!(t);
+        .collect::<Vec<_>>();
+    println!("Score {:?}", score);
+    1
 }
 
 fn parse1(s: &str) -> usize {
@@ -140,32 +96,12 @@ fn parse1(s: &str) -> usize {
         .map(|(_k, v)| v.name)
         .collect::<Vec<_>>();
 
-    dbg!(&node);
-
-    /*
-    let edges = valves.iter()
-        .enumerate()
-        .map(|(i, (_k, v))| {
-            let neighbors = v.leads.iter()
-                .map(|val| {
-                    (i, node.binary_search(val).unwrap())
-                })
-                .collect::<Vec<_>>();
-            neighbors
-        })
-        .flatten()
+    let target_nodes = valves.iter()
+        .filter(|(_k, v)| v.rate > 0)
+        .map(|(_k, v)| v.name)
         .collect::<Vec<_>>();
-    dbg!(&edges);
-    
-    let graph = DiGraphMap::<usize,usize>::from_edges(&edges,);
-    let res = dijkstra(
-        &graph,
-        (node.binary_search(&"DD").unwrap()),
-        Some(node.binary_search(&"BB").unwrap()),
-        |_| 1,
-    );
-    dbg!(&res);
-    */
+    dbg!(&target_nodes);
+
     let edges = valves.iter()
         .map(|(k, v)| {
             let neighbors = v.leads.iter()
@@ -177,17 +113,14 @@ fn parse1(s: &str) -> usize {
         })
         .flatten()
         .collect::<Vec<_>>();
-    dbg!(&edges);
+    //dbg!(&edges);
     
     let graph = DiGraphMap::<&str,&str>::from_edges(&edges,);
-    let res = dijkstra(
-        &graph,
-        (&"DD"),
-        Some(&"BB"),
-        |_| 1,
-    );
-    dbg!(&res);
-    todo!()
+
+    println!("DD -> BB is {}", get_dist(&"DD", &"BB", &graph));
+
+    let res = solve(&"AA", 30, &target_nodes, &valves, &graph);
+    res
 }
 
 fn parse2(s: &str) -> usize {
