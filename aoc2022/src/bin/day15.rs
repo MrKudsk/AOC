@@ -126,7 +126,7 @@ fn parse2(s: &str, limit: i32) -> i32 {
     let mut result = (0,0);
     for y in min_limt..=limit {
         let vec = get_x_range(&distance, y, limit);
-        if y % 100_000 == 0 {
+        if y % 100 == 0 {
             println!("-> {y}");
         }
         if (max(&vec).unwrap() - min(&vec).unwrap()) != (vec.len() as i32 - 1) {
