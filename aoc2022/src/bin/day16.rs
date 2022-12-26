@@ -4,8 +4,8 @@ use regex::Regex;
 const INPUT: &'static str = include_str!("../../input/16.txt");
 
 fn main() {
-    println!("day 16, output 1: {}", parse1(INPUT, 30));
-    println!("day 16, output 2: {}", parse2(INPUT));
+    //println!("day 16, output 1: {}", parse1(INPUT, 30));
+    println!("day 16, output 2: {}", parse2(INPUT, 26));
 }
 
 fn solve(node: &str, 
@@ -13,29 +13,33 @@ fn solve(node: &str,
     flow: &HashMap<&str, i32>,
     graph: &HashMap<&str, Vec<&str>>,
     visited: &mut Vec<String>,
-    cashe: &mut HashMap<(String, Vec<String>, i32), i32>,
+    cashe: &mut HashMap<(String, Vec<String>, i32, bool), i32>,
+    elephane: bool,
 ) -> i32 {
     if time <= 0 {
+        if elephane {
+            return solve("AA", 26, flow, graph, visited, cashe, false)
+        }
         return 0;
     }
-    if let Some(&ans) = cashe.get(&(node.to_string(), visited.clone(), time)) {
+    if let Some(&ans) = cashe.get(&(node.to_string(), visited.clone(), time, elephane)) {
         return ans;
     }
     let mut best = i32::MIN;
     if !visited.contains(&node.to_string()) && *flow.get(node).unwrap() > 0 {
         for &neighbor in graph.get(&node).unwrap() {
             visited.push(node.to_string());
-            let sub_result = solve(neighbor, time - 2 , flow, graph, visited, cashe);
+            let sub_result = solve(neighbor, time - 2 , flow, graph, visited, cashe, elephane);
             best = best.max(sub_result + flow.get(node).unwrap() * (time -1));
             visited.pop();
         }
 
     }
     for &neighbor in graph.get(node).unwrap() {
-        let sub_result = solve(neighbor, time - 1, flow, graph, visited, cashe);
+        let sub_result = solve(neighbor, time - 1, flow, graph, visited, cashe, elephane);
         best = best.max(sub_result);
     }
-    cashe.insert((node.to_string(), visited.clone(), time), best);
+    cashe.insert((node.to_string(), visited.clone(), time, elephane), best);
     best
 }
 
@@ -60,11 +64,11 @@ fn parse1(s: &str, time: i32) -> i32 {
     let mut visit = vec![];
     let mut cashe = HashMap::new();
 
-    let res = solve("AA", time, &flow, &graph, &mut visit, &mut cashe);
+    let res = solve("AA", time, &flow, &graph, &mut visit, &mut cashe, false);
     res
 }
 
-fn parse2(s: &str, time) -> usize {
+fn parse2(s: &str, time: i32) -> i32 {
     let mut graph: HashMap<&str, Vec<&str>> = HashMap::new();
     let mut flow: HashMap<&str, i32> = HashMap::new();
 
@@ -85,7 +89,7 @@ fn parse2(s: &str, time) -> usize {
     let mut visit = vec![];
     let mut cashe = HashMap::new();
 
-    let res = solve("AA", time, &flow, &graph, &mut visit, &mut cashe);
+    let res = solve("AA", time, &flow, &graph, &mut visit, &mut cashe, true);
     res
 }
 
