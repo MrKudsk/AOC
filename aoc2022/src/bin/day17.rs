@@ -5,6 +5,8 @@ use std::collections::HashMap;
 
 const INPUT: &'static str = include_str!("../../input/17.txt");
 
+const OUCH: usize = 1_000_000_000_000;
+
 const SHAPES: [[u8; 4]; 5] = [
     [0b0000000, 0b0000000, 0b0000000, 0b0011110],
     [0b0000000, 0b0001000, 0b0011100, 0b0001000],
@@ -183,10 +185,10 @@ fn parse2(s: &str) -> usize {
     let mut drops = 0;
     let mut piecnum = 0;
     let mut cycle_map = HashMap::new();
+    let mut chamber = Chamber::new(jets);
 
     // map state to (height, drops)
-    cycle_map.insert((piecnum, drops, 0usize), (0usize, 0usize));
-    let mut chamber = Chamber::new(jets);
+    cycle_map.insert((piecnum, chamber.jetsnum, 0usize), (0usize, 0usize));
 
     loop {
         chamber.drop_one();
@@ -203,20 +205,45 @@ fn parse2(s: &str) -> usize {
             | ((chamber.rocks[height - 3] as usize) << 8)
             | (chamber.rocks[height - 4] as usize);
 
-        println!("{} {}", shap, piecnum);
+        if let Some(entry) = cycle_map.get(&(piecnum, chamber.jetsnum, shap)) {
+            println!("piece  = {}", piecnum);
+            println!("jets   = {}", chamber.jetsnum);
+            println!("shap   = {}", shap);
+            println!("height = {}", height);
+            println!("drops  = {}", drops);
 
-        if drops > 20 {
-            break;
+            let delta_height = height - entry.0;
+            let delta_drops = drops - entry.1;
+            println!("There is an increase of {delta_height} rows for every {delta_drops} drops");
+
+            let remaining = OUCH - entry.1;
+            println!("There are still {} left to go - {}", remaining, entry.1);
+
+            let needed = remaining / delta_drops;
+            let leftover = remaining % delta_drops;
+            let integral_height = entry.0 + delta_height * needed;
+            println!("The height will reach {integral_height}, but there are still {leftover} drops left");
+
+            for _ in 0..leftover {
+                chamber.drop_one();
+            }
+
+            let leftover_height = chamber.height() - height;
+            println!("After {leftover} more drops, we added {leftover_height} rows.");
+
+            return integral_height + leftover_height;
+        } else {
+            cycle_map.insert((piecnum, chamber.jetsnum, shap), (height, drops));
         }
     }
-    chamber.height()
+    // chamber.height()
 }
 
 #[cfg(test)]
 mod test {
     use super::*;
 
-    const INPUT: &str = ">>><<><>><<<>><>>><<<>>><<<><<<>><>><<>>\n";
+    const INPUT: &str = ">>><<><>><<<>><>>><<<>>><<<><<<>><>><<>>";
 
     #[test]
     fn first() {
