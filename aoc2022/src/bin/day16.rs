@@ -68,6 +68,7 @@ fn parse1(s: &str, time: i32) -> i32 {
     res
 }
 
+// Not woriking not memory 
 fn parse2(s: &str, time: i32) -> i32 {
     let mut graph: HashMap<&str, Vec<&str>> = HashMap::new();
     let mut flow: HashMap<&str, i32> = HashMap::new();
