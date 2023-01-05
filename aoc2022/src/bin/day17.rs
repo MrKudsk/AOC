@@ -1,5 +1,5 @@
 use core::iter::Cycle;
-use std::collections::HashMap;
+use std::collections::{HashMap, VecDeque};
 
 #[allow(unused_variables)]
 
@@ -16,7 +16,7 @@ const SHAPES: [[u8; 4]; 5] = [
 ];
 
 struct Chamber<'a> {
-    rocks: Vec<u8>,
+    rocks: VecDeque<u8>,
     jets: Vec<char>,
     jetsnum: usize,
     shapes: Cycle<std::slice::Iter<'a, [u8; 4]>>,
@@ -33,7 +33,7 @@ impl Chamber<'_> {
     */
     fn new(jets: Vec<char>) -> Self {
         Self {
-            rocks: vec![0, 0, 0, 0, 0, 0, 0],
+            rocks: VecDeque::from(vec![0,0,0,0,0,0,0]),
             jets,
             jetsnum: 0,
             shapes: self::SHAPES.iter().cycle(),
@@ -44,7 +44,7 @@ impl Chamber<'_> {
         let mut piece: [u8; 4] = *self.shapes.next().unwrap();
         let mut last = self.rocks.len() - 7;
         while self.rocks[last] != 0 {
-            self.rocks.push(0);
+            self.rocks.push_back(0);
             last += 1;
         }
 
@@ -165,12 +165,44 @@ fn parse1(s: &str) -> usize {
     }
     let mut chamber = Chamber::new(jets);
     for _ in 0..2022 {
+    // for _ in 0..1_000_000_000_000usize {
         chamber.drop_one();
     }
     chamber.height()
 }
 
 fn parse2(s: &str) -> usize {
+    let mut jets = s.chars().collect::<Vec<char>>();
+    if jets[jets.len() - 1] == '\n' {
+        jets.pop();
+    }
+
+    let mut height = 0;
+    let mut drops = 0;
+    let mut chamber = Chamber::new(jets);
+    
+    loop {
+        for _ in 0..1_000_000_000 {
+        // for _ in 0..1_000_000_000_000usize {
+            chamber.drop_one();
+            drops += 1;
+            if drops >= OUCH {
+                return height + chamber.height();
+            }
+        }
+        let delta_height = chamber.height() - 10;
+        height += delta_height;
+        //println!("height {height} after {drops} drops.");
+        for _ in 0..delta_height {
+            chamber.rocks.pop_front();
+        }
+        println!("{}", drops);
+        //chamber._draw();
+    }
+   //height
+}
+
+fn _parse2(s: &str) -> usize {
     let mut jets = s.chars().collect::<Vec<char>>();
     if jets[jets.len() - 1] == '\n' {
         jets.pop();
