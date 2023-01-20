@@ -78,7 +78,9 @@ How many positions does the tail of the rope visit at least once?
 
 ### --- Day 17 ---
 
-### --- Day 18 ---
+### --- Day 18: Boiling Boulders ---
+1. What is the surface area of your scanned lava droplet?
+2. What is the exterior surface area of your scanned lava droplet?
 
 ### --- Day 19 ---
 
