@@ -171,7 +171,7 @@ fn parse1(s: &str) -> usize {
     chamber.height()
 }
 
-fn parse2(s: &str) -> usize {
+fn _parse2(s: &str) -> usize {
     let mut jets = s.chars().collect::<Vec<char>>();
     if jets[jets.len() - 1] == '\n' {
         jets.pop();
@@ -192,21 +192,23 @@ fn parse2(s: &str) -> usize {
         }
         let delta_height = chamber.height() - 10;
         height += delta_height;
-        //println!("height {height} after {drops} drops.");
+        println!("height {height} after {drops} drops.");
         for _ in 0..delta_height {
             chamber.rocks.pop_front();
         }
-        println!("{}", drops);
+        println!("--------------------------------------------");
         //chamber._draw();
     }
    //height
 }
 
-fn _parse2(s: &str) -> usize {
+fn parse2(s: &str) -> usize {
     let mut jets = s.chars().collect::<Vec<char>>();
     if jets[jets.len() - 1] == '\n' {
         jets.pop();
     }
+
+    println!("Jets length {}", jets.len());
     // state will be; current piece number, current jet index, top 4 rows of chamber
     // if we get a repeat, then we found a cycle
     //      -- delta_height: height from revious cycle to this on
