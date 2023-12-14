@@ -11,7 +11,9 @@ fn parse1(s: &str) -> usize {
     println!("{}", s);
     let _blueprint = s.lines().map(|lin| {
         println!("{}",lin);
-    });
+    })
+    .collect<Vec<str>>();
+    
     return 3;
 }
 
