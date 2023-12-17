@@ -3,6 +3,8 @@ resolver = "2"
 
 members = ["day-*", "www"]
 default-members = ["day-*"]
+exclude = ["scripts/get-aoc-input"]
+
 
 [workspace.dependencies]
 glam = "0.24.2"

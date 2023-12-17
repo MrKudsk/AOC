@@ -6,6 +6,7 @@ test day part:
   cargo nextest run -p {{day}} {{part}}
 
 # Create the directory for a new day's puzzle and fetch the input
+create day:
   cargo generate --path ./daily-template --name {{day}}
   just get-input {{day}}
 

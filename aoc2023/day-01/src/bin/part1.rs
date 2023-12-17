@@ -1,4 +1,4 @@
-use {{crate_name}}::part1::process;
+use day_01::part1::process;
 use miette::Context;
 
 fn main() -> miette::Result<()> {

@@ -1,6 +1,6 @@
 use crate::custom_error::AocError;
 
-pub fn process(_input: &str,) -> miette::Result<String, AocError> {
+pub fn process(_input: &str) -> miette::Result<String, AocError> {
     todo!("day 01 - part 1");
 }
 
@@ -14,4 +14,5 @@ mod tests {
         let input = "";
         assert_eq!("", process(input)?);
         Ok(());
+    }
 }

@@ -1,4 +1,4 @@
-#!/usr/bin/env cargo -Zscript
+#!/usr/bin/env run-cargo-script
 
 //! ```cargo
 //! [package]
