@@ -1,7 +1,21 @@
 use crate::custom_error::AocError;
 
-pub fn process(_input: &str) -> miette::Result<String, AocError> {
-    todo!("day 01 - part 1");
+pub fn process(input: &str) -> miette::Result<String, AocError> {
+    let output = input
+        .lines()
+        .map(|line| {
+            let mut it = line.chars().filter_map(|ch| ch.to_digit(10));
+            let first = it.next().expect("should be a number");
+            let last = it.last();
+
+            match last {
+                Some(num) => format!("{first}{num}").parse::<u32>(),
+                None => format!("{first}{first}").parse::<u32>(),
+            }
+            .expect("should be a valid number")
+        })
+        .sum::<u32>();
+    Ok(output.to_string())
 }
 
 #[cfg(test)]
