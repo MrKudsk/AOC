@@ -10,3 +10,7 @@ aoc2021/target/
 *.lock
 
 **/*.rs.bk
+
+# clang
+aoc2023/bin/
+*/bin/day03
