@@ -2,4 +2,4 @@
 
 set -xe
 
-cc -Wall -Wextra -ggdb -o bin/day03 day03/main.c
+clang -Wall -Wextra -ggdb -o ./bin/day03 -Idev-deps day03/main.c -lm
