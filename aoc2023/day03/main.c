@@ -1,6 +1,5 @@
 #include <ctype.h>
 #include <errno.h>
-#include <math.h>
 #include <stdbool.h>
 #include <stdio.h>
 #include <stdlib.h>
@@ -31,7 +30,8 @@ static void *context_realloc(void *oldp, size_t oldsz, size_t newsz) {
   return memcpy(context_alloc(newsz), oldp, oldsz);
 }
 
-#define INPUT "./day03/test.txt"
+// #define INPUT "./day03/test.txt"
+#define INPUT "./day03/input.txt"
 
 static char *contents;
 
@@ -89,74 +89,23 @@ defer:
   return result;
 }
 
-bool check_for_sign(char *buffer, size_t buffer_size, int rowlen, int x) {
-  int y = 0;
-  int maxy = buffer_size / (rowlen + 1);
-  printf("------------------------------------\n");
-  printf("x: %d: c: %c\n", x, buffer[x]);
-  if (rowlen > 0) {
-    y = (int)floor(x / (float)rowlen + 1.0);
-    y -= 1;
-    // printf("x: %d: c: %c\n", x, buffer[x]);
-    // printf("x: %d: y: %d  new x: %d\n", x, y, x - (rowlen + 1) * y);
-    x = x - (rowlen + 1) * y;
-  } else
-    rowlen = -1;
-  int c = 0;
-  printf("x: %d y: %d\n", x, y);
-  if ((x - 1 >= 0) && (x + 1 < rowlen)) {
-    c = x + (rowlen + 1) * y;
-    printf("c: %d char: %c\n", c, buffer[c - 1]);
-    if (!isdigit(buffer[c - 1]) && buffer[c - 1] != '.') {
-      printf("true c: %d char: %c\n", c - 1, buffer[c - 1]);
-      return true;
-    }
-    if (!isdigit(buffer[c + 1]) && buffer[c + 1] != '.') {
-      printf("true c: %d char: %c\n", c + 1, buffer[c + 1]);
-      return true;
-    }
-  }
-  if (y - 1 > 0) {
-    printf("over y %d. x %d\n", y - 1, x);
-    if ((x - 1 >= 0) && (x + 1 < rowlen)) {
-      c = x + (rowlen + 1) * (y - 1);
-      printf("c: %d\n", c);
-      if (!isdigit(buffer[c - 1]) && buffer[c - 1] != '.') {
-        printf("true c: %d char: %c\n", c - 1, buffer[c - 1]);
-        return true;
-      }
-      if (!isdigit(buffer[c]) && buffer[c] != '.') {
-        printf("true c: %d char: %c\n", c, buffer[c]);
-        return true;
-      }
-      if (!isdigit(buffer[c + 1]) && buffer[c + 1] != '.') {
-        printf("true c: %d char: %c\n", c + 1, buffer[c + 1]);
-        return true;
-      }
-    }
-  }
-  if (y + 1 < maxy) {
-    printf("under y %d. x %d\n", y + 1, x);
-    if ((x - 1 >= 0) && (x + 1 < rowlen)) {
-      c = x + (rowlen + 1) * (y + 1);
-      printf("c: %d\n", c);
-      if (!isdigit(buffer[c - 1]) && buffer[c - 1] != '.') {
-        printf("true c: %d char: %c\n", c - 1, buffer[c - 1]);
-        return true;
-      }
-      if (!isdigit(buffer[c]) && buffer[c] != '.') {
-        printf("true c: %d char: %c\n", c, buffer[c]);
-        return true;
-      }
-      if (!isdigit(buffer[c + 1]) && buffer[c + 1] != '.') {
-        printf("true c: %d char: %c\n", c + 1, buffer[c + 1]);
-        return true;
-      }
-    }
-  }
-  // printf("max y: %d\n", maxy);
-  printf("------------------------------------\n");
+bool check_for_sign(char *buffer, size_t buffer_size, int rowlen, int x,
+                    int collen, int y) {
 
+  for (int i = -1; i < 2; ++i) {
+    int dy = y + i;
+    if (dy >= 0 && dy < collen) {
+      for (int ii = -1; ii < 2; ++ii) {
+        int dx = x + ii;
+        if (dx > 0 && dx < rowlen) {
+          int c = (dx - 1) + (dy * rowlen);
+          if (!isdigit(buffer[c]) && buffer[c] != '.') {
+            return true;
+          }
+        }
+      }
+    }
+  }
   return false;
 }
 
@@ -184,18 +133,38 @@ int main(void) {
   tmp[0] = '\0';
   for (int x = 0; contents[x] != '\0'; x++) {
     if (contents[x] == '\n') {
-      if (rowlen == 0)
-        rowlen = x;
-      continue;
+      rowlen = x + 1;
+      break;
     }
-    // printf("%c", contents[x]);
-    if (isdigit(contents[x])) {
-      int tmplen = strlen(tmp);
-      tmp[tmplen] = contents[x];
-      tmp[tmplen + 1] = '\0';
-      if (!sign)
-        sign = check_for_sign(buffer, buffer_size, rowlen, x);
-    } else if (strlen(tmp) > 0) {
+  }
+  printf("------------------------------------\n");
+  printf(" rowlen = %d\n", rowlen);
+  printf(" buffer size = %zu\n", buffer_size);
+  printf(" rowlen = %f\n", buffer_size / (float)rowlen);
+  printf("------------------------------------\n");
+
+  int c = 0;
+  int collen = (int)(buffer_size / (float)rowlen);
+  for (int y = 0; y < collen; ++y) {
+    for (int x = 1; x < rowlen; ++x) {
+      c = (x - 1) + (y * rowlen);
+      // printf("%c", contents[c]);
+      if (isdigit(contents[c])) {
+        int tmplen = strlen(tmp);
+        tmp[tmplen] = contents[c];
+        tmp[tmplen + 1] = '\0';
+        if (!sign)
+          sign = check_for_sign(buffer, buffer_size, rowlen, x, collen, y);
+      } else if (strlen(tmp) > 0) {
+        if (sign)
+          printf("tmp: %s\n", tmp);
+        if (sign)
+          sum += atol(tmp);
+        sign = false;
+        tmp[0] = '\0';
+      }
+    }
+    if (strlen(tmp) > 0) {
       if (sign)
         printf("tmp: %s\n", tmp);
       if (sign)
@@ -203,9 +172,10 @@ int main(void) {
       sign = false;
       tmp[0] = '\0';
     }
+    printf("\n");
   }
-  printf("row length %i\n", rowlen);
   printf("Sum %ld\n\n", sum);
+
 defer:
   return result;
 }
