@@ -30,8 +30,8 @@ static void *context_realloc(void *oldp, size_t oldsz, size_t newsz) {
   return memcpy(context_alloc(newsz), oldp, oldsz);
 }
 
-// #define INPUT "./day03/test.txt"
-#define INPUT "./day03/input.txt"
+#define INPUT "./day03/test.txt"
+// #define INPUT "./day03/input.txt"
 
 static char *contents;
 
@@ -87,6 +87,26 @@ int read_from_file(char *filename) {
 defer:
   fclose(f);
   return result;
+}
+
+int check_for_number(char *buffer, size_t buffer_size, int rowlen, int x,
+                    int collen, int y) {
+
+  for (int i = -1; i < 2; ++i) {
+    int dy = y + i;
+    if (dy >= 0 && dy < collen) {
+      for (int ii = -1; ii < 2; ++ii) {
+        int dx = x + ii;
+        if (dx > 0 && dx < rowlen) {
+          int c = (dx - 1) + (dy * rowlen);
+          if (isdigit(buffer[c])) {
+            printf("c: %d \n", c);
+          }
+        }
+      }
+    }
+  }
+  return 1;
 }
 
 bool check_for_sign(char *buffer, size_t buffer_size, int rowlen, int x,
@@ -145,6 +165,7 @@ int main(void) {
 
   int c = 0;
   int collen = (int)(buffer_size / (float)rowlen);
+  /*
   for (int y = 0; y < collen; ++y) {
     for (int x = 1; x < rowlen; ++x) {
       c = (x - 1) + (y * rowlen);
@@ -175,6 +196,21 @@ int main(void) {
     printf("\n");
   }
   printf("Sum %ld\n\n", sum);
+*/
+  for (int y = 0; y < collen; ++y) {
+    for (int x = 1; x < rowlen; ++x) {
+      c = (x - 1) + (y * rowlen);
+      // printf("%c", contents[c]);
+      if (contents[c] == '*') {
+        printf("x: %d  y: %d\n", x, y);
+        sum += check_for_number(buffer, buffer_size, rowlen, x, collen, y);
+      }
+    }
+    // printf("\n");
+  }
+
+  printf("Sum %ld\n\n", sum);
+
 
 defer:
   return result;

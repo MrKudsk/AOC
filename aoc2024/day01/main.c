@@ -5,16 +5,19 @@
 #include <stdlib.h>
 #include <string.h>
 
-#define return_defer(value)                                                    \
+/* #define return_defer(value)                                                    \
   do {                                                                         \
     result = (value);                                                          \
     goto defer;                                                                \
   } while (0)
-
+*/
 typedef int Errno;
 
 #define ARENA_IMPLEMENTATION
 #include "arena.h"
+#define NOB_IMPLEMENTATION
+#define NOB_STRIP_PREFIX
+#include "nob.h"
 
 static Arena default_arena = {0};
 static Arena *context_arena = &default_arena;
@@ -35,7 +38,7 @@ static void *context_realloc(void *oldp, size_t oldsz, size_t newsz) {
 
 static char *contents;
 
-Errno read_entire_file(const char *file_path, char **buffer,
+Errno read_entire_fil(const char *file_path, char **buffer,
                        size_t *buffer_size) {
   Errno result = 0;
   FILE *f = NULL;
@@ -72,7 +75,7 @@ int main(void) {
 
   char *buffer;
   size_t buffer_size;
-  Errno err = read_entire_file(INPUT, &buffer, &buffer_size);
+  Errno err = read_entire_fil(INPUT, &buffer, &buffer_size);
   if (err != 0) {
     fprintf(stderr, "ERROR: could not read file %s: %s\n", INPUT,
             strerror(errno));
@@ -82,26 +85,31 @@ int main(void) {
   printf("%s\n", buffer);
   contents = buffer;
   int rowlen = 0;
-  long sum = 0;
-  bool sign = false;
+  long sum = 0 ;
+  // bool sign = false;
   char *tmp;
   tmp = context_alloc(sizeof(char) * 8);
   tmp[0] = '\0';
-    for (int x = 0; contents[x] != '\0'; x++) {
-      if (contents[x] == '\n') {
+  for (int x = 0; contents[x] != '\0'; x++) {
+    if (contents[x] == '\n') {
       rowlen = x + 1;
       break;
     }
-    }
+  }
   printf("------------------------------------\n");
   printf(" rowlen = %d\n", rowlen);
   printf(" buffer size = %zu\n", buffer_size);
-  printf(" rowlen = %f\n", buffer_size / (float)rowlen);
   printf("------------------------------------\n");
 
-  printf("Sum %ld\n\n", sum);
+  
+  for (int x=0; x<rowlen; ++x) {
+    *tmp = shift(buffer, rowlen);
+    printf("x: %d tmp = %s\n", rowlen, tmp);
+  }
+
+    printf("Sum %ld\n\n", sum);
 
 
-defer:
-  return result;
-}
+  defer:
+    return result;
+  }
