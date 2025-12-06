@@ -22,7 +22,32 @@ function partOne(rotations: string[]) {
   console.log("PartOne:", password);
 }
 
+function partTwo(rotations: string[]) {
+  let current = START;
+  let password = 0;
+
+  rotations.forEach((rotation) => {
+    const dir = rotation.slice(0, 1);
+    const val = Number(rotation.slice(1));
+    let startval = current;
+
+    for (let i = 0; i < val; i++) {
+      if (dir === "L") {
+        current = (current - 1) % 100;
+        if (current == -1) current += 100;
+      } else {
+        current = (current + 1) % 100;
+        if (current == 100) current -= 100;
+      }
+      if (current === 0) password += 1;
+    };
+    console.log(dir, val, current, password);
+  });
+  console.log("PartTwo:", password);
+}
+
 // const input = await fs.readFile("./import-sample.txt", "utf-8");
 const input = await fs.readFile("./import.txt", "utf-8");
 
-partOne(input.split("\n"));
+// partOne(input.split("\n"));
+partTwo(input.split("\n"));
